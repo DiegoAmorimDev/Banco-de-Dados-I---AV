@@ -1,0 +1,35 @@
+CREATE TABLE [ESTADOS] (
+    [ID] INT IDENTITY(1,1) PRIMARY KEY, -- ID único para cada estado
+    [SIGLA] CHAR(2) NOT NULL UNIQUE,   -- Sigla do estado (Ex: PA, SP)
+    [NOME] VARCHAR(100) NOT NULL       -- Nome completo do estado (Ex: Pará, São Paulo)
+);
+
+INSERT INTO [ESTADOS] ([SIGLA], [NOME])
+VALUES 
+('AC', 'Acre'),
+('AL', 'Alagoas'),
+('AP', 'Amapá'),
+('AM', 'Amazonas'),
+('BA', 'Bahia'),
+('CE', 'Ceará'),
+('DF', 'Distrito Federal'),
+('ES', 'Espírito Santo'),
+('GO', 'Goiás'),
+('MA', 'Maranhão'),
+('MT', 'Mato Grosso'),
+('MS', 'Mato Grosso do Sul'),
+('MG', 'Minas Gerais'),
+('PA', 'Pará'),
+('PB', 'Paraíba'),
+('PR', 'Paraná'),
+('PE', 'Pernambuco'),
+('PI', 'Piauí'),
+('RJ', 'Rio de Janeiro'),
+('RN', 'Rio Grande do Norte'),
+('RS', 'Rio Grande do Sul'),
+('RO', 'Rondônia'),
+('RR', 'Roraima'),
+('SC', 'Santa Catarina'),
+('SP', 'São Paulo'),
+('SE', 'Sergipe'),
+('TO', 'Tocantins');

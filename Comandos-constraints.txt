@@ -1,0 +1,72 @@
+
+SELECT * FROM REGISTROS
+
+------- Definindo chave primária
+
+ALTER TABLE [REGISTROS]
+ADD CONSTRAINT PK_REGISTROS PRIMARY KEY ([CNES]);
+
+--------------Definindo valor único
+
+ALTER TABLE [REGISTROS]
+ADD CONSTRAINT UQ_CNPJ_UNICO UNIQUE ([CNPJ DO ESTABELECIMENTO]);
+
+--------- Valores não nulos
+ALTER TABLE [REGISTROS]
+ALTER COLUMN [ANO] INT NOT NULL;
+
+-------------- Validando se o cep tem 9 caracteres
+ALTER TABLE [REGISTROS]
+ADD CONSTRAINT CK_CEP_VALIDO CHECK (LEN([CEP]) = 9);
+
+--------- Restringindo o ano para maior que 2000
+
+ALTER TABLE [REGISTROS]
+ADD CONSTRAINT CK_ANO_VALIDO CHECK ([ANO] >= 2000);
+
+---------- Definindo um padrão para colunas que não recebem dados na inserção
+
+ALTER TABLE [REGISTROS]
+ADD CONSTRAINT DF_GESTAO DEFAULT ('Municipal') FOR [GESTÃO];
+
+---------- Definindo chave estrangeira
+
+ALTER TABLE [REGISTROS]
+ADD CONSTRAINT FK_UF_ESTADOS FOREIGN KEY ([UF])
+REFERENCES [ESTADOS] ([SIGLA]);
+
+---------- Adicione uma coluna com valor padrão sem deixar valores nulos nos registros existentes.
+
+ALTER TABLE [REGISTROS]
+ADD [SITUACAO] VARCHAR(50) DEFAULT 'ATIVO' WITH VALUES;
+
+----------- Desabilitar constraints
+
+ALTER TABLE [REGISTROS] NOCHECK CONSTRAINT ALL;
+
+----------- Habilitar constraints
+
+ALTER TABLE [REGISTROS] CHECK CONSTRAINT ALL;
+
+----------- Remover constraints
+
+ALTER TABLE [REGISTROS]
+DROP CONSTRAINT CK_CEP_VALIDO;
+
+---------- Adicionando constraints na criação de tabelas:
+
+CREATE TABLE [REGISTROS] (
+    [CNES] INT NOT NULL,
+    [CNPJ DO ESTABELECIMENTO] VARCHAR(14) NOT NULL UNIQUE,
+    [ANO] INT NOT NULL CHECK ([ANO] >= 2000),
+    [GESTÃO] VARCHAR(50) DEFAULT ('Municipal') NOT NULL,
+    [UF] CHAR(2) NOT NULL,
+    CONSTRAINT PK_CNES PRIMARY KEY ([CNES]),
+    CONSTRAINT FK_UF_ESTADOS FOREIGN KEY ([UF]) REFERENCES [ESTADOS] ([SIGLA])
+);
+
+
+
+
+
+
